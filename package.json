@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@aws-sdk/client-rekognition": "^3.1000.0",
     "@resvg/resvg-js": "^2.6.2",
     "@supabase/supabase-js": "^2.98.0",
     "next": "16.1.6",

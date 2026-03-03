@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { RekognitionClient, DetectFacesCommand } from '@aws-sdk/client-rekognition'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { scoreImage } from '@/lib/scoring'
 
-const rekognition = new RekognitionClient({
-  region: process.env.AWS_REGION ?? 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-})
+const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic']
+const MAX_SIZE_BYTES = 10 * 1024 * 1024 // 10MB
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,21 +14,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No image provided.' }, { status: 400 })
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer())
-
-    // Confirm it's a face
-    const detectResult = await rekognition.send(
-      new DetectFacesCommand({ Image: { Bytes: buffer } })
-    )
-
-    if (!detectResult.FaceDetails || detectResult.FaceDetails.length === 0) {
+    if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: "UglyNet™ could not locate a face. Are you sure that's you?" },
-        { status: 422 }
+        { error: 'UglyNet™ only accepts JPEG, PNG, WebP, or HEIC images.' },
+        { status: 400 }
       )
     }
 
-    // Score the image
+    if (file.size > MAX_SIZE_BYTES) {
+      return NextResponse.json(
+        { error: 'Image too large. UglyNet™ has standards. Keep it under 10MB.' },
+        { status: 400 }
+      )
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer())
+
+    // Score the image (hash-seeded pseudorandom — same photo always gets same score)
     const { score, label, categories } = scoreImage(buffer)
 
     // Upload to Supabase Storage
