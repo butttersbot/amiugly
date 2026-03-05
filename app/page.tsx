@@ -22,21 +22,25 @@ export default function Home() {
     'Preparing your results — brace yourself.',
   ]
 
-  async function handleFile(file: File) {
+  function openFilePicker() {
     if (!confirmed) {
-      setError('Please confirm this is a photo of you.')
+      setError('Please confirm this is a photo of you before continuing.')
       return
     }
+    fileInputRef.current?.click()
+  }
+
+  async function handleFile(file: File) {
     setError('')
     setLoading(true)
     setProgress(0)
+    setProgressText(PROGRESS_STEPS[0])
 
-    // Fake progress animation
     let step = 0
     const progressInterval = setInterval(() => {
       step++
       setProgress(Math.min(step * 16, 90))
-      setProgressText(PROGRESS_STEPS[Math.min(step - 1, PROGRESS_STEPS.length - 1)])
+      setProgressText(PROGRESS_STEPS[Math.min(step, PROGRESS_STEPS.length - 1)])
     }, 900)
 
     try {
@@ -65,11 +69,17 @@ export default function Home() {
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
+    // Reset so same file can be selected again
+    e.target.value = ''
     if (file) handleFile(file)
   }
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault()
+    if (!confirmed) {
+      setError('Please confirm this is a photo of you before continuing.')
+      return
+    }
     const file = e.dataTransfer.files[0]
     if (file) handleFile(file)
   }
@@ -94,21 +104,21 @@ export default function Home() {
             <div
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              onClick={() => fileInputRef.current?.click()}
+              onClick={openFilePicker}
               className="border-2 border-dashed border-[#262626] hover:border-[#dc2626] rounded-lg p-10 cursor-pointer transition-colors group"
             >
               <div className="text-4xl mb-3">📸</div>
               <p className="text-[#a3a3a3] text-sm group-hover:text-[#f5f5f5] transition-colors">
                 Drop a selfie here or tap to upload
               </p>
-              <p className="text-[#525252] text-xs mt-1">JPG, PNG, WEBP</p>
+              <p className="text-[#525252] text-xs mt-1">JPG, PNG, WEBP, HEIC</p>
             </div>
 
+            {/* Hidden file input — no capture attr so desktop & library both work */}
             <input
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              capture="user"
               className="hidden"
               onChange={handleFileChange}
             />
@@ -118,7 +128,10 @@ export default function Home() {
               <input
                 type="checkbox"
                 checked={confirmed}
-                onChange={e => setConfirmed(e.target.checked)}
+                onChange={e => {
+                  setConfirmed(e.target.checked)
+                  if (e.target.checked) setError('')
+                }}
                 className="mt-0.5 accent-[#dc2626]"
               />
               <span className="text-[#a3a3a3] text-sm">
@@ -132,9 +145,8 @@ export default function Home() {
             )}
 
             <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={!confirmed}
-              className="w-full bg-[#dc2626] hover:bg-[#b91c1c] disabled:bg-[#3f3f3f] disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
+              onClick={openFilePicker}
+              className="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
             >
               Analyze My Face
             </button>
@@ -142,7 +154,7 @@ export default function Home() {
         ) : (
           /* Loading screen */
           <div className="max-w-md mx-auto space-y-6">
-            <div className="mono text-[#dc2626] text-sm animate-pulse">{progressText}</div>
+            <div className="mono text-[#dc2626] text-sm animate-pulse min-h-[20px]">{progressText}</div>
             <div className="w-full bg-[#1a1a1a] rounded-full h-2">
               <div
                 className="bg-[#dc2626] h-2 rounded-full transition-all duration-700"

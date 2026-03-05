@@ -1,5 +1,6 @@
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import OptOutButton from './OptOutButton'
 
 export default async function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -25,17 +26,35 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
         🔬 UGLY REPORT™ · Case #{id.slice(0, 8).toUpperCase()}
       </div>
 
+      {/* Subject photo */}
+      <div className="relative w-48 h-48 mx-auto mb-8 fade-in-up-delay-1">
+        <div className="w-full h-full rounded-lg overflow-hidden border border-[#262626]">
+          <Image
+            src={submission.image_url}
+            alt="Subject"
+            fill
+            className="object-cover"
+            sizes="192px"
+            priority
+          />
+        </div>
+        {/* Red corner accent */}
+        <div className="absolute -bottom-2 -right-2 bg-[#dc2626] mono text-white text-[10px] px-2 py-1 rounded tracking-widest">
+          SUBJECT
+        </div>
+      </div>
+
       {/* Big label */}
-      <h1 className="text-5xl md:text-6xl font-bold text-[#f5f5f5] leading-tight mb-3 fade-in-up-delay-1">
+      <h1 className="text-5xl md:text-6xl font-bold text-[#f5f5f5] leading-tight mb-3 fade-in-up-delay-2 text-center">
         {submission.label}
       </h1>
-      <p className="text-[#a3a3a3] mono text-xs tracking-widest mb-12 fade-in-up-delay-2">
+      <p className="text-[#a3a3a3] mono text-xs tracking-widest mb-12 fade-in-up-delay-3 text-center">
         ANALYZED BY UGLYNET™ · TRAINED ON 14M FACES · 47 UGLINESS DIMENSIONS
       </p>
 
       {/* Category breakdown */}
       <div className="space-y-0 border border-[#262626] rounded-lg overflow-hidden mb-10 fade-in-up-delay-3">
-        {categories.map(([key, cat], i) => (
+        {categories.map(([key, cat]) => (
           <div
             key={key}
             className="flex items-center justify-between px-5 py-4 border-b border-[#262626] last:border-b-0 hover:bg-[#111] transition-colors"
@@ -60,7 +79,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
 
         <a
           href={shareCardUrl}
-          download={`ugly-report-${id}.png`}
+          download={`ugly-report-${id.slice(0, 8)}.png`}
           className="flex items-center justify-center gap-2 w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-3 px-6 rounded-lg transition-colors"
         >
           📥 Download Share Card
