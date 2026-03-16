@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'uglypeople.com — Science doesn\'t lie. Unfortunately.',
+  title: 'amiugly.lol — Science doesn\'t lie. Unfortunately.',
   description: 'Find out how ugly you really are. UglyNet™ analyzes 47 facial dimensions across 6 ugliness vectors.',
   openGraph: {
-    title: 'uglypeople.com',
+    title: 'amiugly.lol',
     description: 'Find out how ugly you really are. Science doesn\'t lie.',
     type: 'website',
   },
@@ -14,22 +15,36 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0a0a0a] text-[#f5f5f5] antialiased">
-        <nav className="border-b border-[#262626] px-6 py-4">
+      <body className="min-h-screen antialiased" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
+        <nav className="border-b px-6 py-4" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
           <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <a href="/" className="mono text-[#dc2626] font-bold tracking-widest text-sm">
-              🔬 UGLYPEOPLE.COM
+            <a href="/" className="flex items-center gap-2 font-bold tracking-wide text-sm" style={{ color: 'var(--accent)' }}>
+              <span className="text-lg">💅</span>
+              <span className="serif text-base">amiugly.lol</span>
             </a>
-            <a href="/gallery" className="text-[#a3a3a3] text-sm hover:text-[#f5f5f5] transition-colors">
+            <a href="/gallery" className="text-sm transition-colors hover:opacity-80" style={{ color: 'var(--muted)' }}>
               Gallery →
             </a>
           </div>
         </nav>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5249658333733157"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {children}
-        <footer className="border-t border-[#262626] px-6 py-8 mt-20">
-          <div className="max-w-5xl mx-auto text-center text-[#525252] text-xs mono space-y-1">
-            <p>uglypeople.com · UglyNet™ v4.2.1</p>
-            <p>UglyNet™ is a satirical AI for entertainment purposes only. We think you&apos;re beautiful.</p>
+        <footer className="border-t px-6 py-8 mt-20" style={{ borderColor: 'var(--border)' }}>
+          <div className="max-w-5xl mx-auto text-center text-xs mono space-y-2" style={{ color: 'var(--very-muted)' }}>
+            <p>amiugly.lol · UglyNet™ v4.2.1</p>
+            <p>UglyNet™ is a satirical AI for entertainment purposes only. We think you&apos;re gorgeous. 💅</p>
+            <div className="flex items-center justify-center gap-4 pt-1">
+              <a href="/about" className="hover:opacity-80 transition-opacity">About</a>
+              <span>·</span>
+              <a href="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</a>
+              <span>·</span>
+              <a href="mailto:hello@amiugly.lol" className="hover:opacity-80 transition-opacity">Contact</a>
+            </div>
           </div>
         </footer>
       </body>
