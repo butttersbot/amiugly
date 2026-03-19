@@ -1,17 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0a0a;
-  --red: #dc2626;
-  --text: #f5f5f5;
-  --muted: #a3a3a3;
-  --border: #262626;
+  --bg: #fff4f6;
+  --accent: #e11d48;
+  --accent-dark: #be123c;
+  --accent-light: #fda4af;
+  --text: #1a0a0d;
+  --muted: #9d6b73;
+  --border: #fecdd3;
+  --surface: #ffffff;
+  --surface-muted: #fff0f3;
+  --very-muted: #d4a0aa;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
   font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.serif {
+  font-family: 'DM Serif Display', Georgia, serif;
 }
 
 .mono {
@@ -23,9 +33,9 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes countUp {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 .fade-in-up {
@@ -38,3 +48,11 @@ body {
 .fade-in-up-delay-4 { animation: fadeInUp 0.6s ease 0.8s forwards; opacity: 0; }
 .fade-in-up-delay-5 { animation: fadeInUp 0.6s ease 1.0s forwards; opacity: 0; }
 .fade-in-up-delay-6 { animation: fadeInUp 0.6s ease 1.2s forwards; opacity: 0; }
+
+/* Hover helpers — usable in server components via className */
+.hover-surface:hover { background: var(--surface-muted) !important; }
+.hover-accent-border:hover { border-color: var(--accent) !important; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-outline { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent); }

@@ -14,14 +14,17 @@ export default function OptOutButton({ id, inGallery }: { id: string; inGallery:
   }
 
   if (removed) {
-    return <span className="text-[#525252] text-xs mono">Removed from gallery ✓</span>
+    return <span className="text-xs mono" style={{ color: 'var(--very-muted)' }}>Removed from gallery ✓</span>
   }
 
   return (
     <button
       onClick={handleOptOut}
       disabled={loading}
-      className="text-[#525252] text-xs mono hover:text-[#dc2626] transition-colors disabled:opacity-50"
+      className="text-xs mono transition-colors disabled:opacity-50"
+      style={{ color: 'var(--very-muted)' }}
+      onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+      onMouseLeave={e => (e.currentTarget.style.color = 'var(--very-muted)')}
     >
       {loading ? 'Removing...' : 'Remove me from gallery'}
     </button>

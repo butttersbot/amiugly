@@ -2,6 +2,7 @@ import { getSupabaseAdmin } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import OptOutButton from './OptOutButton'
+import AdUnit from '@/app/components/AdUnit'
 
 export default async function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -16,71 +17,86 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
 
   const categories = Object.entries(submission.categories) as [string, { label: string; callout: string }][]
   const shareCardUrl = `/api/share-card/${id}`
-  const shareText = `UglyNet™ classified me as "${submission.label}" 💀 uglypeople.com/results/${id}`
+  const shareText = `UglyNet™ classified me as "${submission.label}" 💀 amiugly.lol/results/${id}`
 
   return (
-    <main className="max-w-2xl mx-auto px-6 py-16">
+    <main className="max-w-2xl mx-auto px-6 py-10">
 
       {/* Header */}
-      <div className="mono text-[#dc2626] text-xs tracking-[4px] uppercase mb-8 fade-in-up">
-        🔬 UGLY REPORT™ · Case #{id.slice(0, 8).toUpperCase()}
+      <div className="mono text-xs tracking-[4px] uppercase mb-5 fade-in-up" style={{ color: 'var(--accent)' }}>
+        💅 UGLY REPORT™ · Case #{id.slice(0, 8).toUpperCase()}
       </div>
 
       {/* Subject photo */}
-      <div className="relative w-48 h-48 mx-auto mb-8 fade-in-up-delay-1">
-        <div className="w-full h-full rounded-lg overflow-hidden border border-[#262626]">
+      <div className="relative w-40 h-40 mx-auto mb-5 fade-in-up-delay-1">
+        <div
+          className="w-full h-full rounded-2xl overflow-hidden"
+          style={{ border: '3px solid var(--border)' }}
+        >
           <Image
             src={submission.image_url}
             alt="Subject"
             fill
             className="object-cover"
-            sizes="192px"
+            sizes="160px"
             priority
           />
         </div>
-        {/* Red corner accent */}
-        <div className="absolute -bottom-2 -right-2 bg-[#dc2626] mono text-white text-[10px] px-2 py-1 rounded tracking-widest">
-          SUBJECT
+        <div
+          className="absolute -bottom-2 -right-2 mono text-white text-[10px] px-2 py-1 rounded-lg tracking-widest"
+          style={{ background: 'var(--accent)' }}
+        >
+          SUBJECT ✨
         </div>
       </div>
 
       {/* Big label */}
-      <h1 className="text-5xl md:text-6xl font-bold text-[#f5f5f5] leading-tight mb-3 fade-in-up-delay-2 text-center">
+      <h1
+        className="serif text-4xl md:text-5xl leading-tight mb-3 fade-in-up-delay-2 text-center"
+        style={{ color: 'var(--text)' }}
+      >
         {submission.label}
       </h1>
-      <p className="text-[#a3a3a3] mono text-xs tracking-widest mb-12 fade-in-up-delay-3 text-center">
+      <p className="mono text-xs tracking-widest mb-8 fade-in-up-delay-3 text-center" style={{ color: 'var(--muted)' }}>
         ANALYZED BY UGLYNET™ · TRAINED ON 14M FACES · 47 UGLINESS DIMENSIONS
       </p>
 
       {/* Category breakdown */}
-      <div className="space-y-0 border border-[#262626] rounded-lg overflow-hidden mb-10 fade-in-up-delay-3">
+      <div
+        className="rounded-3xl overflow-hidden mb-8 fade-in-up-delay-3"
+        style={{ border: '1px solid var(--border)' }}
+      >
         {categories.map(([key, cat]) => (
           <div
             key={key}
-            className="flex items-center justify-between px-5 py-4 border-b border-[#262626] last:border-b-0 hover:bg-[#111] transition-colors"
+            className="flex items-center justify-between px-5 py-3 hover-surface"
+            style={{
+              borderBottom: '1px solid var(--border)',
+              background: 'var(--surface)',
+            }}
           >
-            <span className="text-[#a3a3a3] mono text-sm">{cat.label}</span>
+            <span className="mono text-sm" style={{ color: 'var(--muted)' }}>{cat.label}</span>
             <div className="flex items-center gap-3">
-              <span className="text-[#f5f5f5] text-sm text-right">{cat.callout}</span>
-              <span className="text-[#dc2626] text-xs">●</span>
+              <span className="text-sm text-right" style={{ color: 'var(--text)' }}>{cat.callout}</span>
+              <span className="text-xs" style={{ color: 'var(--accent-light)' }}>●</span>
             </div>
           </div>
         ))}
       </div>
 
       {/* Ad slot */}
-      <div className="ad-slot bg-[#111] border border-[#262626] rounded-lg p-6 text-[#525252] text-xs mono text-center min-h-[100px] flex items-center justify-center mb-10 fade-in-up-delay-4">
-        [ Advertisement ]
-      </div>
+      <AdUnit slot="2249944413" format="rectangle" className="mb-10 fade-in-up-delay-4" />
 
       {/* Share */}
       <div className="space-y-3 fade-in-up-delay-5">
-        <h2 className="mono text-[#dc2626] text-xs tracking-widest uppercase mb-4">Share Your Results</h2>
+        <h2 className="mono text-xs tracking-widest uppercase mb-4" style={{ color: 'var(--accent)' }}>
+          Share Your Results ✨
+        </h2>
 
         <a
           href={shareCardUrl}
           download={`ugly-report-${id.slice(0, 8)}.png`}
-          className="flex items-center justify-center gap-2 w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-3 px-6 rounded-lg transition-colors"
+          className="btn-primary flex items-center justify-center gap-2 w-full font-bold py-3 px-6 rounded-2xl transition-colors"
         >
           📥 Download Share Card
         </a>
@@ -89,7 +105,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-[#111] hover:bg-[#1a1a1a] border border-[#262626] hover:border-[#dc2626] text-[#f5f5f5] font-bold py-3 px-6 rounded-lg transition-colors"
+          className="btn-outline hover-accent-border flex items-center justify-center gap-2 w-full font-bold py-3 px-6 rounded-2xl transition-colors"
         >
           𝕏 Post to X
         </a>
@@ -98,16 +114,19 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           href={`https://www.instagram.com/`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-[#111] hover:bg-[#1a1a1a] border border-[#262626] hover:border-[#dc2626] text-[#f5f5f5] font-bold py-3 px-6 rounded-lg transition-colors"
+          className="btn-outline hover-accent-border flex items-center justify-center gap-2 w-full font-bold py-3 px-6 rounded-2xl transition-colors"
         >
           📸 Share to Instagram
         </a>
       </div>
 
       {/* Actions */}
-      <div className="mt-10 pt-8 border-t border-[#262626] flex items-center justify-between fade-in-up-delay-6">
-        <a href="/" className="text-[#a3a3a3] text-sm hover:text-[#f5f5f5] transition-colors">
-          ← Analyze another face
+      <div
+        className="mt-10 pt-8 flex items-center justify-between fade-in-up-delay-6"
+        style={{ borderTop: '1px solid var(--border)' }}
+      >
+        <a href="/" className="text-sm transition-colors" style={{ color: 'var(--muted)' }}>
+          ← Rate another face
         </a>
         <OptOutButton id={id} inGallery={submission.in_gallery} />
       </div>

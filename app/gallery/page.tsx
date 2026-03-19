@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { getSupabase, Submission } from '@/lib/supabase'
 import Image from 'next/image'
+import AdUnit from '@/app/components/AdUnit'
 
 const PAGE_SIZE = 24
 
@@ -42,21 +43,24 @@ export default function GalleryPage() {
     <main className="max-w-5xl mx-auto px-6 py-16">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <div className="mono text-[#dc2626] text-xs tracking-[4px] uppercase mb-2">
-            Subject Registry
+          <div className="mono text-xs tracking-[4px] uppercase mb-2" style={{ color: 'var(--accent)' }}>
+            ✨ Subject Registry
           </div>
-          <h1 className="text-3xl font-bold">The Gallery</h1>
+          <h1 className="serif text-3xl" style={{ color: 'var(--text)' }}>The Gallery</h1>
         </div>
         <a
           href="/"
-          className="bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-2 px-5 rounded-lg transition-colors text-sm"
+          className="text-white font-bold py-2 px-5 rounded-2xl transition-colors text-sm"
+          style={{ background: 'var(--accent)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-dark)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
         >
-          Analyze Me →
+          Rate Me ✨
         </a>
       </div>
 
       {submissions.length === 0 && !loading && (
-        <div className="text-center py-24 text-[#525252] mono text-sm">
+        <div className="text-center py-24 mono text-sm" style={{ color: 'var(--very-muted)' }}>
           No subjects yet. Be the first to submit.
         </div>
       )}
@@ -64,7 +68,15 @@ export default function GalleryPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {submissions.map((s) => (
           <a key={s.id} href={`/results/${s.id}`} className="group block">
-            <div className="aspect-square relative overflow-hidden rounded-lg bg-[#111] border border-[#262626] group-hover:border-[#dc2626] transition-colors">
+            <div
+              className="aspect-square relative overflow-hidden rounded-2xl transition-colors"
+              style={{
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+            >
               <Image
                 src={s.image_url}
                 alt={s.label}
@@ -74,15 +86,15 @@ export default function GalleryPage() {
                 loading="lazy"
               />
             </div>
-            <p className="mt-1.5 text-[#a3a3a3] text-xs mono leading-tight group-hover:text-[#dc2626] transition-colors truncate">
+            <p className="mt-1.5 text-xs mono leading-tight truncate transition-colors" style={{ color: 'var(--muted)' }}>
               {s.label}
             </p>
           </a>
         ))}
 
         {/* Ad slot every 24 items */}
-        <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6 ad-slot bg-[#111] border border-[#262626] rounded-lg p-6 text-[#525252] text-xs mono text-center min-h-[80px] flex items-center justify-center">
-          [ Advertisement ]
+        <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6">
+          <AdUnit slot="7310699401" format="horizontal" />
         </div>
       </div>
 
@@ -91,7 +103,14 @@ export default function GalleryPage() {
           <button
             onClick={loadMore}
             disabled={loading}
-            className="bg-[#111] border border-[#262626] hover:border-[#dc2626] text-[#f5f5f5] font-bold py-3 px-8 rounded-lg transition-colors disabled:opacity-50 mono text-sm"
+            className="font-bold py-3 px-8 rounded-2xl transition-colors disabled:opacity-50 mono text-sm"
+            style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
           >
             {loading ? 'Loading subjects...' : 'Load more subjects'}
           </button>
@@ -99,7 +118,7 @@ export default function GalleryPage() {
       )}
 
       {loading && submissions.length === 0 && (
-        <div className="text-center py-24 text-[#525252] mono text-sm animate-pulse">
+        <div className="text-center py-24 mono text-sm animate-pulse" style={{ color: 'var(--very-muted)' }}>
           Loading subjects...
         </div>
       )}

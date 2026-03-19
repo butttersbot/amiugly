@@ -19,8 +19,8 @@ export default function GalleryPreview() {
 
   if (submissions.length === 0) {
     return (
-      <div className="text-center py-16 text-[#525252] mono text-sm">
-        No subjects yet. Be the first to submit.
+      <div className="text-center py-16 mono text-sm" style={{ color: 'var(--very-muted)' }}>
+        No subjects yet. Be the first to submit. 💅
       </div>
     )
   }
@@ -29,7 +29,15 @@ export default function GalleryPreview() {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
       {submissions.map((s) => (
         <a key={s.id} href={`/results/${s.id}`} className="group block">
-          <div className="aspect-square relative overflow-hidden rounded-lg bg-[#111] border border-[#262626] group-hover:border-[#dc2626] transition-colors">
+          <div
+            className="aspect-square relative overflow-hidden rounded-2xl transition-colors"
+            style={{
+              border: '1px solid var(--border)',
+              background: 'var(--surface)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+          >
             <Image
               src={s.image_url}
               alt={s.label}
@@ -38,7 +46,7 @@ export default function GalleryPreview() {
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
             />
           </div>
-          <p className="mt-1.5 text-[#a3a3a3] text-xs mono leading-tight group-hover:text-[#dc2626] transition-colors truncate">
+          <p className="mt-1.5 text-xs mono leading-tight truncate" style={{ color: 'var(--muted)' }}>
             {s.label}
           </p>
         </a>

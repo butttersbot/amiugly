@@ -31,10 +31,21 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer())
 
     // Score the image (hash-seeded pseudorandom — same photo always gets same score)
-    const { score, label, categories } = scoreImage(buffer)
+    const { score, label, categories, imageHash } = scoreImage(buffer)
+
+    // Dedup: if this exact image was uploaded before, return the existing result
+    const { data: existing } = await getSupabaseAdmin()
+      .from('submissions')
+      .select('id, label, categories')
+      .eq('image_hash', imageHash)
+      .single()
+
+    if (existing) {
+      return NextResponse.json({ id: existing.id, label: existing.label, categories: existing.categories })
+    }
 
     // Upload to Supabase Storage
-    const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`
+    const filename = `${imageHash}.jpg`
     const { error: uploadError } = await getSupabaseAdmin().storage
       .from('faces')
       .upload(filename, buffer, { contentType: file.type, upsert: false })
@@ -50,7 +61,7 @@ export async function POST(req: NextRequest) {
     // Store submission
     const { data: submission, error: dbError } = await getSupabaseAdmin()
       .from('submissions')
-      .insert({ image_url, label, score, categories, in_gallery: true })
+      .insert({ image_url, label, score, categories, in_gallery: true, image_hash: imageHash })
       .select()
       .single()
 
