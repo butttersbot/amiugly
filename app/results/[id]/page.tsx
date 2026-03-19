@@ -28,7 +28,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
       </div>
 
       {/* Subject photo */}
-      <div className="relative w-40 h-40 mx-auto mb-5 fade-in-up-delay-1">
+      <div className="relative w-40 h-40 mx-auto mb-3 fade-in-up-delay-1">
         <div
           className="w-full h-full rounded-2xl overflow-hidden"
           style={{ border: '3px solid var(--border)' }}
@@ -52,12 +52,12 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
 
       {/* Big label */}
       <h1
-        className="serif text-4xl md:text-5xl leading-tight mb-3 fade-in-up-delay-2 text-center"
+        className="serif text-4xl md:text-5xl leading-tight mb-2 fade-in-up-delay-2 text-center"
         style={{ color: 'var(--text)' }}
       >
         {submission.label}
       </h1>
-      <p className="mono text-xs tracking-widest mb-8 fade-in-up-delay-3 text-center" style={{ color: 'var(--muted)' }}>
+      <p className="mono text-xs tracking-widest mb-4 fade-in-up-delay-3 text-center" style={{ color: 'var(--muted)' }}>
         ANALYZED BY UGLYNET™ · TRAINED ON 14M FACES · 47 UGLINESS DIMENSIONS
       </p>
 
