@@ -38,10 +38,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-5xl mx-auto text-center text-xs mono space-y-2" style={{ color: 'var(--very-muted)' }}>
             <p>amiugly.lol · UglyNet™ v4.2.1</p>
             <p>UglyNet™ is a satirical AI for entertainment purposes only. We think you&apos;re gorgeous. 💅</p>
-            <div className="flex items-center justify-center gap-4 pt-1">
+            <div className="flex items-center justify-center gap-4 pt-1 flex-wrap">
               <a href="/about" className="hover:opacity-80 transition-opacity">About</a>
               <span>·</span>
+              <a href="/blog" className="hover:opacity-80 transition-opacity">Blog</a>
+              <span>·</span>
               <a href="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</a>
+              <span>·</span>
+              <a href="/terms" className="hover:opacity-80 transition-opacity">Terms</a>
               <span>·</span>
               <a href="mailto:hello@amiugly.lol" className="hover:opacity-80 transition-opacity">Contact</a>
             </div>
