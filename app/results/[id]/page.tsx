@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import OptOutButton from './OptOutButton'
+import AdUnit from '@/app/components/AdUnit'
 
 export default async function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -85,6 +86,12 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
       </div>
 
 
+      {/* Ad — above fold, after content */}
+      <div className="my-8">
+        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
+        <AdUnit slot="2249944413" format="horizontal" />
+      </div>
+
       {/* Share */}
       <div className="space-y-3 fade-in-up-delay-5">
         <h2 className="mono text-xs tracking-widest uppercase mb-4" style={{ color: 'var(--accent)' }}>
@@ -158,6 +165,12 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           and we&apos;ll handle it within 48 hours.
         </p>
       </section>
+
+      {/* Ad — post-editorial */}
+      <div className="mt-8">
+        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
+        <AdUnit slot="2249944413" format="rectangle" />
+      </div>
     </main>
   )
 }
