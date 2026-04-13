@@ -1,6 +1,7 @@
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import OptOutButton from './OptOutButton'
 import AdUnit from '@/app/components/AdUnit'
 
@@ -84,8 +85,12 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
         ))}
       </div>
 
-      {/* Ad slot */}
-      <AdUnit slot="2249944413" format="rectangle" className="mb-10 fade-in-up-delay-4" />
+
+      {/* Ad — above fold, after content */}
+      <div className="my-8">
+        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
+        <AdUnit slot="2249944413" format="horizontal" />
+      </div>
 
       {/* Share */}
       <div className="space-y-3 fade-in-up-delay-5">
@@ -129,6 +134,42 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           ← Rate another face
         </a>
         <OptOutButton id={id} inGallery={submission.in_gallery} />
+      </div>
+
+      {/* Editorial context — required for AdSense content targeting */}
+      <section className="mt-10 pt-8 space-y-4 text-sm leading-relaxed" style={{ borderTop: "1px solid var(--border)", color: "var(--muted)" }}>
+        <h2 className="font-semibold text-base" style={{ color: "var(--text)" }}>About Your UglyNet™ Analysis</h2>
+        <p>
+          UglyNet™ analyzed your photo across six satirical dimensions: Jawline Aura, Cheekbone Energy,
+          Eye Socket Drama, Forehead Real Estate, Nose Bridge Confidence, and General Vibe.
+          Each category generates a label based on an elaborate pseudo-scientific scoring rubric
+          that we completely made up.
+        </p>
+        <p>
+          The scores are random. The labels are AI-generated absurdist commentary.
+          None of this reflects your actual attractiveness, health, genetics, or worth as a person.
+          The premise of UglyNet™ is that AI confidently stating ridiculous things about human faces is funny —
+          because it is. Real AI systems used in beauty scoring carry serious biases around race,
+          lighting, camera quality, and cultural beauty standards. By making those biases explicit and absurd,
+          amiugly.lol is commenting on them, not endorsing them.
+        </p>
+        <p>Curious about what science actually says about facial attractiveness?</p>
+        <ul className="list-disc ml-5 space-y-1">
+          <li><Link href="/blog/facial-symmetry" style={{ color: "var(--accent)" }}>What Is Facial Symmetry and Does It Actually Matter?</Link></li>
+          <li><Link href="/blog/golden-ratio" style={{ color: "var(--accent)" }}>The Science of the Golden Ratio (And Why It&apos;s Mostly Made Up)</Link></li>
+          <li><Link href="/blog/ai-cant-tell-ugly" style={{ color: "var(--accent)" }}>Why AI Can&apos;t Actually Tell If You&apos;re Ugly</Link></li>
+        </ul>
+        <p>
+          Want your photo removed from our gallery?{" "}
+          <a href="mailto:hello@amiugly.lol" style={{ color: "var(--accent)" }}>Contact us</a>{" "}
+          and we&apos;ll handle it within 48 hours.
+        </p>
+      </section>
+
+      {/* Ad — post-editorial */}
+      <div className="mt-8">
+        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
+        <AdUnit slot="2249944413" format="rectangle" />
       </div>
     </main>
   )

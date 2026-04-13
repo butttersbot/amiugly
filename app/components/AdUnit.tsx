@@ -10,7 +10,7 @@ declare global {
 
 interface AdUnitProps {
   slot: string
-  format?: 'auto' | 'rectangle' | 'horizontal'
+  format?: 'auto' | 'rectangle' | 'horizontal' | 'in-article'
   className?: string
 }
 

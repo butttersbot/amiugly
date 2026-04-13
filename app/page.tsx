@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import GalleryPreview from './components/GalleryPreview'
+import AdUnit from '@/app/components/AdUnit'
 
 export default function Home() {
   const router = useRouter()
@@ -230,7 +232,7 @@ export default function Home() {
           </div>
         ) : (
           /* Loading screen */
-          <div className="max-w-md mx-auto space-y-6">
+          <div className="max-w-md mx-auto space-y-5">
             <div className="mono text-sm animate-pulse min-h-[20px]" style={{ color: 'var(--accent)' }}>
               {progressText}
             </div>
@@ -243,15 +245,59 @@ export default function Home() {
             <p className="text-xs mono" style={{ color: 'var(--very-muted)' }}>
               UglyNet™ is analyzing 47 facial dimensions. Please stand by.
             </p>
-            <div
-              className="rounded-2xl p-6 text-xs mono text-center min-h-[100px] flex items-center justify-center"
-              style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--very-muted)' }}
-            >
-              [ Advertisement ]
-            </div>
           </div>
         )}
       </section>
+
+
+      <section className="border-t" style={{ borderColor: 'var(--border)' }}>
+        <div className="max-w-3xl mx-auto px-6 py-16 space-y-8">
+          <article className="rounded-3xl p-7" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+            <h2 className="serif text-3xl mb-3" style={{ color: 'var(--text)' }}>What is amiugly.lol?</h2>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+              amiugly.lol is a satire project where UglyNet™ gives your selfie an intentionally absurd "ugliness" report.
+              It is designed for humor and commentary on internet beauty culture, not for real appearance judgments.
+            </p>
+            <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--muted)' }}>
+              If you want the long version, read our{' '}
+              <Link href="/about" className="underline" style={{ color: 'var(--accent)' }}>About page</Link>
+              {' '}or browse the{' '}
+              <Link href="/blog" className="underline" style={{ color: 'var(--accent)' }}>UglyNet Journal</Link>
+              {' '}for deeper explainers.
+            </p>
+          </article>
+
+          <article>
+            <h2 className="mono text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>Satire, not science</h2>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+              The score, labels, and category callouts are entertainment output. Even when the UI jokes about
+              "47 dimensions" and "14 million faces," this should not be treated as a factual measure of attractiveness.
+              Human beauty is subjective, cultural, and context-dependent.
+            </p>
+          </article>
+
+          <article>
+            <h2 className="mono text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>AI limitations</h2>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+              AI vision systems can be biased by lighting, camera angle, image quality, training data, and social stereotypes.
+              They can misread facial features and overstate confidence. That is exactly why amiugly.lol frames results as
+              satire and not as a scientific or personal truth about anyone.
+            </p>
+            <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--muted)' }}>
+              For policy details, data handling, and user rights, see{' '}
+              <Link href="/privacy" className="underline" style={{ color: 'var(--accent)' }}>Privacy</Link>
+              {' '}and{' '}
+              <Link href="/terms" className="underline" style={{ color: 'var(--accent)' }}>Terms</Link>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      {/* Ad — after explanation content, before gallery */}
+      <div className="max-w-3xl mx-auto px-6 pb-8">
+        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
+        <AdUnit slot="7310699401" format="horizontal" />
+      </div>
 
       {/* Gallery preview */}
       <section className="border-t pt-16" style={{ borderColor: 'var(--border)' }}>
