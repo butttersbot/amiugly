@@ -3,12 +3,17 @@ import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://amiugly.lol'),
   title: 'amiugly.lol — Science doesn\'t lie. Unfortunately.',
   description: 'Find out how ugly you really are. UglyNet™ analyzes 47 facial dimensions across 6 ugliness vectors.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'amiugly.lol',
     description: 'Find out how ugly you really are. Science doesn\'t lie.',
     type: 'website',
+    url: 'https://amiugly.lol',
   },
 }
 
