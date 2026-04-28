@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
+import Link from 'next/link'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -23,21 +23,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen antialiased" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
         <nav className="border-b px-6 py-4" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
           <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <a href="/" className="flex items-center gap-2 font-bold tracking-wide text-sm" style={{ color: 'var(--accent)' }}>
+            <Link href="/" className="flex items-center gap-2 font-bold tracking-wide text-sm" style={{ color: 'var(--accent)' }}>
               <span className="text-lg">💅</span>
               <span className="serif text-base">amiugly.lol</span>
-            </a>
-            <a href="/gallery" className="text-sm transition-colors hover:opacity-80" style={{ color: 'var(--muted)' }}>
-              Gallery →
-            </a>
+            </Link>
+            <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--muted)' }}>
+              <Link href="/about" className="transition-colors hover:opacity-80">About</Link>
+              <Link href="/blog" className="transition-colors hover:opacity-80">Blog</Link>
+              <Link href="/gallery" className="transition-colors hover:opacity-80">Gallery</Link>
+            </div>
           </div>
         </nav>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5249658333733157"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
         {children}
         <footer className="border-t px-6 py-8 mt-20" style={{ borderColor: 'var(--border)' }}>
           <div className="max-w-5xl mx-auto text-center text-xs mono space-y-2" style={{ color: 'var(--very-muted)' }}>

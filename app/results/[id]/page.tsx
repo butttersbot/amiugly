@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import OptOutButton from './OptOutButton'
-import AdUnit from '@/app/components/AdUnit'
+
+export const dynamic = 'force-dynamic'
 
 export default async function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -86,12 +87,6 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
       </div>
 
 
-      {/* Ad — above fold, after content */}
-      <div className="my-8">
-        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
-        <AdUnit slot="2249944413" format="horizontal" />
-      </div>
-
       {/* Share */}
       <div className="space-y-3 fade-in-up-delay-5">
         <h2 className="mono text-xs tracking-widest uppercase mb-4" style={{ color: 'var(--accent)' }}>
@@ -130,9 +125,9 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
         className="mt-10 pt-8 flex items-center justify-between fade-in-up-delay-6"
         style={{ borderTop: '1px solid var(--border)' }}
       >
-        <a href="/" className="text-sm transition-colors" style={{ color: 'var(--muted)' }}>
+        <Link href="/" className="text-sm transition-colors" style={{ color: 'var(--muted)' }}>
           ← Rate another face
-        </a>
+        </Link>
         <OptOutButton id={id} inGallery={submission.in_gallery} />
       </div>
 
@@ -166,11 +161,6 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
         </p>
       </section>
 
-      {/* Ad — post-editorial */}
-      <div className="mt-8">
-        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
-        <AdUnit slot="2249944413" format="rectangle" />
-      </div>
     </main>
   )
 }

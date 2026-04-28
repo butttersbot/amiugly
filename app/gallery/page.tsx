@@ -2,7 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { getSupabaseAdmin } from "@/lib/supabase"
 import GalleryLoadMore from "./GalleryLoadMore"
-import AdUnit from "@/app/components/AdUnit"
+
+export const dynamic = 'force-dynamic'
 
 export default async function GalleryPage() {
   const { data: initial } = await getSupabaseAdmin()
@@ -23,13 +24,13 @@ export default async function GalleryPage() {
           </div>
           <h1 className="serif text-3xl" style={{ color: "var(--text)" }}>The Gallery</h1>
         </div>
-        <a
+        <Link
           href="/"
           className="text-white font-bold py-2 px-5 rounded-2xl transition-colors text-sm"
           style={{ background: "var(--accent)" }}
         >
           Rate Me ✨
-        </a>
+        </Link>
       </div>
 
       {/* Editorial content — required for AdSense */}
@@ -63,12 +64,6 @@ export default async function GalleryPage() {
         </p>
       </section>
 
-      {/* Ad — between editorial intro and grid */}
-      <div className="my-6">
-        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
-        <AdUnit slot="7310699401" format="horizontal" />
-      </div>
-
       {submissions.length === 0 ? (
         <div className="text-center py-24 mono text-sm" style={{ color: "var(--very-muted)" }}>
           No subjects yet. Be the first to submit.
@@ -100,11 +95,6 @@ export default async function GalleryPage() {
         </>
       )}
 
-      {/* Ad — post-grid */}
-      <div className="mt-8">
-        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
-        <AdUnit slot="7310699401" format="rectangle" />
-      </div>
     </main>
   )
 }

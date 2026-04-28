@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import GalleryPreview from './components/GalleryPreview'
-import AdUnit from '@/app/components/AdUnit'
 
 export default function Home() {
   const router = useRouter()
@@ -292,12 +291,6 @@ export default function Home() {
           </article>
         </div>
       </section>
-
-      {/* Ad — after explanation content, before gallery */}
-      <div className="max-w-3xl mx-auto px-6 pb-8">
-        <p className="text-xs mono mb-1" style={{ color: "var(--very-muted)" }}>Advertisement</p>
-        <AdUnit slot="7310699401" format="horizontal" />
-      </div>
 
       {/* Gallery preview */}
       <section className="border-t pt-16" style={{ borderColor: 'var(--border)' }}>
