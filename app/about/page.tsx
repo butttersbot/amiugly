@@ -15,14 +15,14 @@ export default function AboutPage() {
 
         <section>
           <h2 className="font-semibold text-base mb-2">What is this?</h2>
-          <p>amiugly.lol is a satirical entertainment website that uses AI to generate a completely made-up &quot;ugliness score&quot; for your selfie. It is not real. UglyNet™ does not actually know if you are ugly. Nobody does. Beauty is subjective and science definitely does not have a definitive answer, despite what our loading screen says.</p>
-          <p className="mt-2">We built this because the internet needed one more reason to take selfies, and also because watching an AI confidently rate someone&apos;s &quot;jawline symmetry across 47 facial dimensions&quot; is extremely funny.</p>
+          <p>amiugly.lol is a satirical entertainment website. UglyNet™ generates an absurdist &quot;Ugly Report&quot; for your selfie — a comedy concept dressed up in pseudo-scientific UI. It does not measure attractiveness. Nobody can. Beauty is subjective, cultural, and not something a website should be telling you about, despite what our loading screen says.</p>
+          <p className="mt-2">We built this because the internet needed one more reason to take selfies, and also because watching an AI confidently narrate someone&apos;s &quot;jawline symmetry across 47 facial dimensions&quot; is extremely funny when everyone knows the framing is satire.</p>
         </section>
 
         <section>
           <h2 className="font-semibold text-base mb-2">How does UglyNet™ work?</h2>
-          <p>You upload a photo. Our AI analyzes it across several totally real and scientifically valid metrics including but not limited to: jawline aura, cheekbone energy, and general vibe. It then produces a score and a roast. The score is random. The roast is AI-generated. Neither should be taken seriously.</p>
-          <p className="mt-2">If you feel bad about your score: the AI is wrong. You look great.</p>
+          <p>You upload a photo. UglyNet™ analyzes it across satirical dimensions including jawline aura, cheekbone energy, eye socket drama, and general vibe. It then produces an absurdist &quot;Ugly Report&quot; with category labels designed to be funny — a comedy filter for selfies dressed up in pseudo-scientific UI.</p>
+          <p className="mt-2">Everything UglyNet™ outputs is satirical commentary. It is not a real attractiveness assessment, a medical opinion, or a personality test. If you feel bad about your result: the AI is satire. You look great.</p>
         </section>
 
         <section>

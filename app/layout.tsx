@@ -22,15 +22,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen antialiased" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
         <nav className="border-b px-6 py-4" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
             <Link href="/" className="flex items-center gap-2 font-bold tracking-wide text-sm" style={{ color: 'var(--accent)' }}>
               <span className="text-lg">💅</span>
               <span className="serif text-base">amiugly.lol</span>
             </Link>
-            <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--muted)' }}>
+            <div className="flex items-center gap-5 text-sm" style={{ color: 'var(--muted)' }}>
               <Link href="/about" className="transition-colors hover:opacity-80">About</Link>
               <Link href="/blog" className="transition-colors hover:opacity-80">Blog</Link>
-              <Link href="/gallery" className="transition-colors hover:opacity-80">Gallery</Link>
+              <Link href="/faq" className="transition-colors hover:opacity-80 hidden sm:inline">FAQ</Link>
+              <Link href="/gallery" className="transition-colors hover:opacity-80" style={{ color: 'var(--accent)' }}>Gallery →</Link>
             </div>
           </div>
         </nav>
@@ -40,13 +41,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <p>amiugly.lol · UglyNet™ v4.2.1</p>
             <p>UglyNet™ is a satirical AI for entertainment purposes only. We think you&apos;re gorgeous. 💅</p>
             <div className="flex items-center justify-center gap-4 pt-1 flex-wrap">
-              <a href="/about" className="hover:opacity-80 transition-opacity">About</a>
+              <Link href="/about" className="hover:opacity-80 transition-opacity">About</Link>
               <span>·</span>
-              <a href="/blog" className="hover:opacity-80 transition-opacity">Blog</a>
+              <Link href="/blog" className="hover:opacity-80 transition-opacity">Blog</Link>
               <span>·</span>
-              <a href="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</a>
+              <Link href="/faq" className="hover:opacity-80 transition-opacity">FAQ</Link>
               <span>·</span>
-              <a href="/terms" className="hover:opacity-80 transition-opacity">Terms</a>
+              <Link href="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</Link>
+              <span>·</span>
+              <Link href="/terms" className="hover:opacity-80 transition-opacity">Terms</Link>
               <span>·</span>
               <a href="mailto:hello@amiugly.lol" className="hover:opacity-80 transition-opacity">Contact</a>
             </div>

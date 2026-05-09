@@ -125,15 +125,18 @@ export default function Home() {
           className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-8 mono"
           style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--accent)' }}
         >
-          ✨ UglyNet™ · Facial Analysis System v4.2.1
+          🎭 100% Satire · For Entertainment Only
         </div>
 
         <h1 className="serif text-5xl md:text-7xl leading-tight mb-5" style={{ color: 'var(--text)' }}>
-          Find out how ugly<br />
-          <span style={{ color: 'var(--accent)' }}>you really are.</span>
+          What does the AI<br />
+          <span style={{ color: 'var(--accent)' }}>think of your selfie?</span>
         </h1>
-        <p className="text-xl mb-12" style={{ color: 'var(--muted)' }}>
-          Science doesn&apos;t lie. Unfortunately.
+        <p className="text-xl mb-3" style={{ color: 'var(--muted)' }}>
+          Get a satirical &quot;Ugly Report&quot; in seconds. Science doesn&apos;t lie. Unfortunately.
+        </p>
+        <p className="text-sm mb-12 mono" style={{ color: 'var(--very-muted)' }}>
+          (UglyNet™ is satire. Your face is fine. We promise.)
         </p>
 
         {!loading ? (
@@ -203,8 +206,7 @@ export default function Home() {
                 style={{ accentColor: 'var(--accent)' }}
               />
               <span className="text-sm" style={{ color: 'var(--muted)' }}>
-                I confirm this is a photo of me. I consent to appearing in the gallery.
-                ({' '}<a href="#" className="underline" style={{ color: 'var(--accent)' }}>opt out on results page</a>)
+                I confirm this is a photo of me, I&apos;m 18 or older, and I consent to appearing in the gallery. (You can opt out from your results page after submitting.)
               </span>
             </label>
 

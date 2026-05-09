@@ -137,11 +137,11 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
         <p>
           UglyNet™ analyzed your photo across six satirical dimensions: Jawline Aura, Cheekbone Energy,
           Eye Socket Drama, Forehead Real Estate, Nose Bridge Confidence, and General Vibe.
-          Each category generates a label based on an elaborate pseudo-scientific scoring rubric
-          that we completely made up.
+          Each category generates a satirical label — UglyNet™ is a comedy concept dressed up in
+          pseudo-scientific UI.
         </p>
         <p>
-          The scores are random. The labels are AI-generated absurdist commentary.
+          The labels are satirical commentary designed for entertainment.
           None of this reflects your actual attractiveness, health, genetics, or worth as a person.
           The premise of UglyNet™ is that AI confidently stating ridiculous things about human faces is funny —
           because it is. Real AI systems used in beauty scoring carry serious biases around race,
