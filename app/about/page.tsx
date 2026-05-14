@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'About — amiugly.lol',
@@ -10,6 +12,8 @@ export default function AboutPage() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>About amiugly.lol</h1>
       <p className="text-xs mb-10" style={{ color: 'var(--muted)' }}>The internet&apos;s most unnecessarily scientific beauty analysis.</p>
+
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-10" />
 
       <div className="space-y-8 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
 
@@ -34,6 +38,8 @@ export default function AboutPage() {
           <h2 className="font-semibold text-base mb-2">Is this mean?</h2>
           <p>It&apos;s meant to be funny, not mean. The whole premise is that AI confidently saying ridiculous things about faces is absurd and worth laughing at. We take content moderation seriously and will remove anything used to harass or demean specific individuals.</p>
         </section>
+
+        <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="my-6" />
 
         <section>
           <h2 className="font-semibold text-base mb-2">Contact</h2>

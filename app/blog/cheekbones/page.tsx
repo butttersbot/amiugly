@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'Cheekbones: Overrated or Actually Important? — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>Cheekbones: Overrated or Actually Important?</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>Few facial features have had a better PR run than the cheekbone. High cheekbones are universally praised in fashion, film, and beauty culture. Models are described as having them. Contouring tutorials teach you to fake them. Fillers are injected to create them. Cheekbones are, apparently, extremely important.</p>
@@ -37,6 +40,7 @@ export default function Article() {
         <p>The cheekbone&apos;s starring role in beauty culture says more about the specific aesthetics of Western high fashion — which is traditionally associated with angular, bony features suited to dramatic lighting — than it does about universal attractiveness. Many faces without prominent cheekbones are extraordinarily attractive. Many faces with them are not. The relationship is real but weak and context-dependent.</p>
 
         <p>UglyNet™ measures Zygomatic Prominence Index as one of our 47 metrics. It contributes approximately 1/47th of your total ugliness score. If you scored poorly on it, 46 other things are also being measured. We suggest not fixating.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

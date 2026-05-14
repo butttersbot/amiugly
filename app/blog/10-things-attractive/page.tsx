@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: '10 Things That Actually Make You More Attractive (According to Science) — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>10 Things That Actually Make You More Attractive (According to Science)</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>Here is the thing about attractiveness research: a lot of it is actually good news. The factors that influence whether someone finds you attractive are more varied, more behavioral, and more within your control than "do you have the correct face." Here is what the research actually suggests.</p>
@@ -47,6 +50,7 @@ export default function Article() {
         <p className="mt-6">The pattern here is clear: most of the factors that most influence attractiveness are behavioral, not structural. You cannot change your skull. You can control most of everything else on this list.</p>
 
         <p>UglyNet™ analyzes your face, not any of these things. This means our scores are, by definition, only capturing part of the picture. You&apos;re welcome for this context.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { Fragment } from 'react'
 import Link from 'next/link'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'Blog — amiugly.lol',
@@ -27,16 +30,23 @@ export default function BlogIndex() {
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>The UglyNet™ Journal</h1>
       <p className="text-xs mb-10" style={{ color: 'var(--muted)' }}>Deeply scientific articles about faces, beauty, and why it's all extremely complicated.</p>
 
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-10" />
+
       <div className="space-y-6">
-        {articles.map((article) => (
-          <Link key={article.slug} href={`/blog/${article.slug}`} className="block group">
-            <div className="p-5 rounded-lg border transition-colors" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
-              <h2 className="font-semibold text-sm mb-1 group-hover:opacity-80 transition-opacity" style={{ color: 'var(--accent)' }}>{article.title}</h2>
-              <p className="text-xs" style={{ color: 'var(--muted)' }}>{article.desc}</p>
-            </div>
-          </Link>
+        {articles.map((article, i) => (
+          <Fragment key={article.slug}>
+            <Link href={`/blog/${article.slug}`} className="block group">
+              <div className="p-5 rounded-lg border transition-colors" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
+                <h2 className="font-semibold text-sm mb-1 group-hover:opacity-80 transition-opacity" style={{ color: 'var(--accent)' }}>{article.title}</h2>
+                <p className="text-xs" style={{ color: 'var(--muted)' }}>{article.desc}</p>
+              </div>
+            </Link>
+            {i === 5 && <AdUnit slot={AD_SLOTS.IN_FEED} format="auto" className="my-2" />}
+          </Fragment>
         ))}
       </div>
+
+      <AdUnit slot={AD_SLOTS.MULTIPLEX} format="auto" className="mt-10" />
     </main>
   )
 }

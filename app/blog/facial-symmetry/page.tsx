@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'What Is Facial Symmetry and Does It Actually Matter? — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16 prose prose-sm">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>What Is Facial Symmetry and Does It Actually Matter?</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>Somewhere along the way, humanity decided that a perfectly symmetrical face was the gold standard of attractiveness. Magazines ran articles about it. Dating apps quietly built it into their algorithms. And now here we all are, staring at our reflections trying to figure out if our left eyebrow is a millimeter higher than our right and whether that means we&apos;re doomed.</p>
@@ -42,6 +45,7 @@ export default function Article() {
         <p>The real takeaway from symmetry research isn&apos;t that you need a perfectly balanced face. It&apos;s that healthy development, good genetics, and overall facial health matter — and those show up in all kinds of ways beyond pure symmetry. Skin quality, facial muscle tone, proportions, and expression all factor in.</p>
 
         <p>UglyNet™ has analyzed your facial symmetry to the nearest 0.01 millimeter, across 47 vectors. We are not going to tell you the results. You&apos;re welcome.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'Why AI Can\'t Actually Tell If You\'re Ugly — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>Why AI Can&apos;t Actually Tell If You&apos;re Ugly</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>We are going to level with you. UglyNet™ is a satirical entertainment tool. The score it gives you is not a real measurement of your attractiveness. The AI behind it cannot actually tell if you are ugly. No AI can, in any meaningful sense of the word. Here is why, explained with the depth the topic deserves.</p>
@@ -40,6 +43,7 @@ export default function Article() {
         <p>The real measure of whether you&apos;re attractive is whether the people whose opinions matter to you find you appealing. That involves your personality, your presence, how you treat people, your sense of humor, your energy, your values. An AI looking at a JPEG has no opinion on any of that.</p>
 
         <p>You look fine. Go outside.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

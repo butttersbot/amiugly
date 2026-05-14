@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'The History of Beauty Standards (A Completely Unbiased Report) — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>The History of Beauty Standards (A Completely Unbiased Report)</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>The one thing history teaches us about beauty standards is that they are completely, utterly, chaotically inconsistent. What was considered the height of attractiveness in one era is bewildering or even unflattering by another era&apos;s standards. If this is comforting to you, it should be.</p>
@@ -35,6 +38,7 @@ export default function Article() {
         <p>The conclusion here isn&apos;t that beauty standards are fake — human beings genuinely respond to certain visual cues. It&apos;s that the specific features that get coded as "beautiful" are heavily shaped by culture, economics, technology, and the whims of whoever is currently most influential. In 200 years, our current beauty ideals will look as dated as high foreheads and lead powder.</p>
 
         <p>UglyNet™ is a product of its time. We acknowledge this. We are not above it.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

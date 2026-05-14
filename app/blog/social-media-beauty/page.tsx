@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'How Social Media Distorted Our Perception of Beauty — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>How Social Media Distorted Our Perception of Beauty</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>In 2012, most people knew what their friends looked like. They&apos;d seen them in person, in unposed moments, in bad lighting, on bad days. The reference point for "normal" was calibrated by real human beings in real environments.</p>
@@ -38,6 +41,7 @@ export default function Article() {
         <p>Knowing this doesn&apos;t automatically fix the distortion — our brains&apos; comparison mechanisms operate faster than our conscious understanding of them. But it&apos;s worth intentionally diversifying the faces you see regularly, being skeptical about the "baseline" your brain is calibrating to, and understanding that almost nobody looks the way they look in their best posted photos all the time. Including the people posting those photos.</p>
 
         <p>amiugly.lol is, in some ways, part of this ecosystem. We know this. We are a satirical mirror held up to it. The score is a joke. The faces in our gallery are real. Both things are true simultaneously.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )
