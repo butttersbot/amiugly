@@ -1,23 +1,20 @@
-// NSFW moderation gate. Loads the NSFWJS model lazily (one-time cost on first
-// invocation, kept warm for the lifetime of the Vercel function instance).
+// NSFW moderation gate. Pure-JS tfjs + sharp pipeline so the serverless bundle
+// stays under Vercel's 250MB limit (tfjs-node is ~383MB and made deploys fail).
 //
 // Decision policy:
 // - reject if Porn > 0.6 OR Hentai > 0.6
 // - reject if Sexy > 0.85 (looser threshold — some swimwear / lingerie scores ~0.6 false-positive)
 // - everything else passes
-//
-// These thresholds err on the side of allowing through borderline cases since
-// the gallery is opt-in already. Tune up if AdSense flags anything.
 
-import * as tf from '@tensorflow/tfjs-node'
+import * as tf from '@tensorflow/tfjs'
 import * as nsfw from 'nsfwjs'
 import type { NSFWJS } from 'nsfwjs'
+import sharp from 'sharp'
 
 let modelPromise: Promise<NSFWJS> | null = null
 
 function getModel(): Promise<NSFWJS> {
   if (!modelPromise) {
-    // First call kicks off the model load. Subsequent calls reuse the same promise.
     modelPromise = nsfw.load()
   }
   return modelPromise
@@ -34,9 +31,22 @@ export type ModerationResult = {
   scores: Record<string, number>
 }
 
+// NSFWJS expects a 224×224 RGB tensor. Decode with sharp and hand tfjs the
+// raw pixel buffer — tfjs-node's decodeImage isn't available in pure JS.
+async function bufferToTensor(buffer: Buffer): Promise<tf.Tensor3D> {
+  const { data, info } = await sharp(buffer)
+    .resize(224, 224, { fit: 'fill' })
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+
+  const pixels = new Uint8Array(data.buffer, data.byteOffset, data.byteLength)
+  return tf.tensor3d(pixels, [info.height, info.width, 3], 'int32')
+}
+
 export async function classifyImage(buffer: Buffer): Promise<ModerationResult> {
   const model = await getModel()
-  const tensor = tf.node.decodeImage(buffer, 3) as tf.Tensor3D
+  const tensor = await bufferToTensor(buffer)
   try {
     const predictions = (await model.classify(tensor)) as Classification[]
     const scores = Object.fromEntries(

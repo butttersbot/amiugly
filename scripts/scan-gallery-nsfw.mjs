@@ -1,25 +1,17 @@
 #!/usr/bin/env node
-// Polyfill: tfjs-node 4.x still uses util.isNullOrUndefined which was removed
-// in Node 22+. Vercel runs Node 22 (pinned via engines) so this only matters
-// for local execution on Node 24.
-import util from 'node:util'
-if (!util.isNullOrUndefined) {
-  util.isNullOrUndefined = (v) => v === null || v === undefined
-}
-
 // Retroactive NSFW sweep on the existing gallery.
 //
 // For every submission with in_gallery=true, fetch the image, classify via
-// NSFWJS, and flip in_gallery=false on anything flagged. Logs what it did
-// (and why) for audit. Does NOT delete the row or the storage file — leaves
-// them in place so Boss can review and decide whether to fully delete.
+// NSFWJS, and flip in_gallery=false on anything flagged. Does NOT delete the
+// row or the storage file — Boss reviews and decides whether to fully delete.
 //
-// Usage:  npm run scan-gallery-nsfw
+// Usage:  npm run scan:gallery
 // Needs:  NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in env
 
 import { createClient } from '@supabase/supabase-js'
-import * as tf from '@tensorflow/tfjs-node'
+import * as tf from '@tensorflow/tfjs'
 import * as nsfw from 'nsfwjs'
+import sharp from 'sharp'
 
 const SUPA_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SUPA_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -60,7 +52,13 @@ for (const sub of submissions) {
       continue
     }
     const buffer = Buffer.from(await res.arrayBuffer())
-    const tensor = tf.node.decodeImage(buffer, 3)
+    const { data, info } = await sharp(buffer)
+      .resize(224, 224, { fit: 'fill' })
+      .removeAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true })
+    const pixels = new Uint8Array(data.buffer, data.byteOffset, data.byteLength)
+    const tensor = tf.tensor3d(pixels, [info.height, info.width, 3], 'int32')
     let scores
     try {
       const preds = await model.classify(tensor)
