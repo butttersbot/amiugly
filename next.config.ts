@@ -2,6 +2,10 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
 
+  // tfjs-node has native bindings (node-pre-gyp) and transitive deps Next.js
+  // can't bundle. Mark it external so it loads at runtime instead.
+  serverExternalPackages: ['@tensorflow/tfjs-node', 'nsfwjs'],
+
   async redirects() {
     return [
       {

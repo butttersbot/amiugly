@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { scoreImage } from '@/lib/scoring'
+import { classifyImage } from '@/lib/moderation'
+
+// NSFW moderation needs the tfjs-node native binary at runtime — force this
+// route onto the Node.js runtime so tfjs-node loads correctly (not edge).
+export const runtime = 'nodejs'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic']
 const MAX_SIZE_BYTES = 10 * 1024 * 1024 // 10MB
@@ -29,6 +34,26 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer())
+
+    // NSFW moderation gate — runs before storage write, hash, or DB insert.
+    // Blocks porn/hentai/sexy uploads so they never touch storage or AdSense surfaces.
+    try {
+      const moderation = await classifyImage(buffer)
+      if (!moderation.safe) {
+        console.warn('NSFW upload rejected:', moderation.reason, moderation.scores)
+        return NextResponse.json(
+          { error: 'This image was flagged by our content filter. Please upload a different photo.' },
+          { status: 400 }
+        )
+      }
+    } catch (modErr) {
+      // Fail closed on classifier errors — better to reject than to leak through.
+      console.error('Moderation error:', modErr)
+      return NextResponse.json(
+        { error: 'Content check failed. Please try again.' },
+        { status: 500 }
+      )
+    }
 
     // Score the image (hash-seeded pseudorandom — same photo always gets same score)
     const { score, label, categories, imageHash } = scoreImage(buffer)
