@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'The Jawline Industrial Complex: A Deep Dive — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>The Jawline Industrial Complex: A Deep Dive</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>At some point in the 2010s, the jawline became a personality. Not just an aesthetic preference — a marker of value, discipline, and genetic legitimacy. "Looksmaxxing" communities built entire philosophies around jaw development. Mewing became a movement. Chewing gum companies pivoted their marketing. The jawline industrial complex was open for business.</p>
@@ -40,6 +43,7 @@ export default function Article() {
         <p>We have a Jaw Definition Score. It is one of 47 metrics. It is weighted exactly as much as Cheekbone Elevation, Nostril Symmetry, and Eyebrow Arch Integrity — which is to say, with the gravity appropriate to a satirical entertainment website.</p>
 
         <p>Your jaw is fine. You do not need to chew harder rocks. Go to sleep.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

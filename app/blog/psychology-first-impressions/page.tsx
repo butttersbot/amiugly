@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'The Psychology of First Impressions — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>The Psychology of First Impressions</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>You have somewhere between 100 milliseconds and seven seconds to make a first impression, depending on whose research you cite. The exact number varies by study and context, but the core finding is consistent: humans form rapid, automatic judgments about other people&apos;s faces, and these judgments are surprisingly sticky.</p>
@@ -40,6 +43,7 @@ export default function Article() {
         <p>Yes, substantially. Research shows that additional information, actual interaction, and time consistently override initial face-based impressions. The first impression is the starting point, not the conclusion. This is why showing up, being competent, being warm, and treating people well matters more than any particular facial feature in most contexts where those things are relevant.</p>
 
         <p>UglyNet™ forms its impression of your face in approximately 0 milliseconds (we precomputed the weights). Our impression is fixed. The impressions of actual humans you meet are not. Worth keeping in mind.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

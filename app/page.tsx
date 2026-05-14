@@ -115,8 +115,31 @@ export default function Home() {
 
   const canSubmit = confirmed && !!selectedFile
 
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'amiugly.lol',
+    url: 'https://amiugly.lol',
+    applicationCategory: 'EntertainmentApplication',
+    operatingSystem: 'Web',
+    description:
+      'Satirical AI selfie analyzer. UglyNet™ generates an absurdist Ugly Report for your photo — pure entertainment, not a real attractiveness assessment.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    featureList: [
+      'Satirical AI face analysis',
+      'Photo upload and instant Ugly Report',
+      'Shareable result cards',
+      'Public opt-in gallery',
+    ],
+    audience: { '@type': 'Audience', audienceType: 'Adults 18+' },
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
       {/* Hero */}
       <section className="max-w-3xl mx-auto px-6 pt-20 pb-16 text-center">
 

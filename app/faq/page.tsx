@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { Fragment } from 'react'
 import Link from 'next/link'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'FAQ — amiugly.lol',
@@ -250,16 +253,23 @@ export default function FAQPage() {
         About amiugly.lol, UglyNet™, your photos, and other things people ask before they upload.
       </p>
 
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-10" />
+
       <div className="space-y-10 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         {faqs.map(({ q, a }, i) => (
-          <section key={i}>
-            <h2 className="font-semibold text-base mb-3" style={{ color: 'var(--text)' }}>
-              {q}
-            </h2>
-            <div className="space-y-2" style={{ color: 'var(--muted)' }}>
-              {a}
-            </div>
-          </section>
+          <Fragment key={i}>
+            <section>
+              <h2 className="font-semibold text-base mb-3" style={{ color: 'var(--text)' }}>
+                {q}
+              </h2>
+              <div className="space-y-2" style={{ color: 'var(--muted)' }}>
+                {a}
+              </div>
+            </section>
+            {(i === 3 || i === 7) && (
+              <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="my-2" />
+            )}
+          </Fragment>
         ))}
       </div>
 

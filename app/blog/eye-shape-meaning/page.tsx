@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'What Your Eye Shape Says About You (Nothing, Scientifically) — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>What Your Eye Shape Says About You (Nothing, Scientifically)</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>The internet is full of articles that will tell you what your eye shape reveals about your personality, your fate, your compatibility, and your inner nature. Almond eyes mean one thing. Hooded eyes mean another. Upturned eyes suggest a certain temperament. Downturned eyes indicate something else entirely.</p>
@@ -38,6 +41,7 @@ export default function Article() {
 
         <h2 className="font-semibold text-base mt-6 mb-2" style={{ color: 'var(--text)' }}>UglyNet™&apos;s Eye Assessment</h2>
         <p>We measure Eye Luminosity, Iris Contrast Coefficient, Periorbital Symmetry, and Lateral Canthal Tilt across three axes. What does this tell us about you? Mostly where to position our score on the results page. What does your eye shape say about you? That your ancestors came from somewhere. Welcome to Earth.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

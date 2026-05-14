@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'The Science of the Golden Ratio (And Why It\'s Mostly Made Up) — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>The Science of the Golden Ratio (And Why It&apos;s Mostly Made Up)</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>The golden ratio is 1.618033... It appears in mathematics, in spiral patterns in nature, and in a truly remarkable number of Instagram posts claiming to explain why certain celebrities are "mathematically perfect." Let&apos;s talk about what&apos;s real here and what&apos;s vibes.</p>
@@ -38,6 +41,7 @@ export default function Article() {
         <p>The golden ratio is beautiful mathematics. It appears in nature in genuinely interesting ways. Its application to human facial attractiveness is largely pseudoscience dressed up in satisfying numbers. This doesn&apos;t mean beauty is completely random — there are real patterns in what humans find attractive. It just means those patterns are more complex, more cultural, and more individual than a single irrational number can capture.</p>
 
         <p>Anyone who pulls out calipers and tells you your face is 1.61 or 1.58 and that means something definitive is selling something. Probably a procedure. Don&apos;t buy it.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )

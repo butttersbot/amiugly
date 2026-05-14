@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import AdUnit from '@/app/components/AdUnit'
+import { AD_SLOTS } from '@/app/components/ad-slots'
 
 export const metadata: Metadata = {
   title: 'Beauty Standards Around the World — amiugly.lol',
@@ -10,6 +12,7 @@ export default function Article() {
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text)' }}>Beauty Standards Around the World</h1>
       <p className="text-xs mb-8" style={{ color: 'var(--muted)' }}>By the UglyNet™ Research Division</p>
+      <AdUnit slot={AD_SLOTS.DISPLAY} format="auto" className="mb-8" />
 
       <div className="space-y-5 text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
         <p>If there is one thing that should dismantle the idea of a single objective standard of beauty, it is a global tour of what different cultures have considered attractive throughout history. The variation is significant, the contradictions are real, and the takeaway is that whoever told you there&apos;s a universal gold standard is working with a very small sample size.</p>
@@ -33,6 +36,7 @@ export default function Article() {
         <p>Cross-cultural research does find some consistencies: health signals (clear skin, symmetry, certain markers of physical vitality) are broadly appealing. Extreme deformity or signs of disease are broadly unappealing. Certain very general proportional patterns appear across many cultures. But the specific features that get coded as beautiful — skin color, body type, facial features, hair — vary enormously.</p>
 
         <p>The honest conclusion is that there are some weak universals in attractiveness and enormous cultural variation layered on top. Your features are beautiful somewhere. They may or may not match the standard of wherever you happen to be. That&apos;s a fact about geography, not about you.</p>
+      <AdUnit slot={AD_SLOTS.IN_ARTICLE} format="in-article" className="mt-10" />
       </div>
     </main>
   )
