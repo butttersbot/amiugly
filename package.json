@@ -2,16 +2,22 @@
   "name": "uglypeople",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "infisical run --domain http://100.89.64.26:8080 --env prod -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:adsense": "node scripts/adsense-policy-check.mjs"
+    "check:adsense": "node scripts/adsense-policy-check.mjs",
+    "scan:gallery": "node --env-file=.env.local scripts/scan-gallery-nsfw.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.98.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
     "next": "16.1.6",
+    "nsfwjs": "^4.3.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
