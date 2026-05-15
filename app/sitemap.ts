@@ -9,7 +9,7 @@ const blogSlugs = [
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/about", "/gallery", "/blog", "/faq", "/privacy", "/terms"].map(path => ({
+  const staticPages = ["", "/about", "/gallery", "/blog", "/faq", "/privacy", "/terms", "/content-policy"].map(path => ({
     url: `https://amiugly.lol${path}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
