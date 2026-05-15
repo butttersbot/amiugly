@@ -2,9 +2,10 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
 
-  // tfjs-node has native bindings (node-pre-gyp) and transitive deps Next.js
-  // can't bundle. Mark it external so it loads at runtime instead.
-  serverExternalPackages: ['@tensorflow/tfjs-node', 'nsfwjs'],
+  // sharp has native bindings that Next.js can't bundle. nsfwjs ships a model
+  // bundle that's pointless to webpack-process. Mark them external so they
+  // load at runtime instead.
+  serverExternalPackages: ['sharp', 'nsfwjs'],
 
   async redirects() {
     return [

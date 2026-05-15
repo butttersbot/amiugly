@@ -3,8 +3,7 @@ import { getSupabaseAdmin } from '@/lib/supabase'
 import { scoreImage } from '@/lib/scoring'
 import { classifyImage } from '@/lib/moderation'
 
-// NSFW moderation needs the tfjs-node native binary at runtime — force this
-// route onto the Node.js runtime so tfjs-node loads correctly (not edge).
+// sharp has a native binary so this must run on Node.js, not edge.
 export const runtime = 'nodejs'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic']
