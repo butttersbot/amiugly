@@ -291,6 +291,66 @@ export default function Home() {
               <Link href="/terms" className="underline" style={{ color: 'var(--accent)' }}>Terms</Link>.
             </p>
           </article>
+
+          <article>
+            <h2 className="mono text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>How the score works</h2>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+              Every uploaded image is hashed, and that hash is used to seed a pseudorandom number generator
+              that produces your &quot;ugliness&quot; score, label, and six category callouts. Upload the same
+              photo twice and you&apos;ll get the exact same satirical output — because there is no real
+              judgment happening. UglyNet™ does not analyze 47 facial dimensions. There is no
+              &quot;face database of 14 million.&quot; The categories — nose, eye placement, forehead,
+              jawline, mouth, vibe — are a fixed list with rotating callout text. That&apos;s the whole joke:
+              AI face-scoring systems sound authoritative, but they&apos;re often closer to a fortune cookie than a measurement.
+            </p>
+          </article>
+
+          <article>
+            <h2 className="mono text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>What we don&apos;t joke about</h2>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+              UglyNet™ never targets race, ethnicity, religion, disability, body weight, age, gender identity,
+              sexual orientation, or any other protected characteristic. The bit is on the absurdity of AI
+              scoring systems — not on the person uploading the photo. We also block sexually explicit content
+              automatically at the upload step (every image is checked by a content classifier before it touches
+              storage). Full details in our{' '}
+              <Link href="/content-policy" className="underline" style={{ color: 'var(--accent)' }}>Content Policy</Link>.
+            </p>
+          </article>
+
+          <article>
+            <h2 className="mono text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--accent)' }}>Quick answers</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Is the score real?</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  No. It&apos;s a pseudorandom number seeded by your image&apos;s hash. The same photo always gets the same satirical output.
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Can I delete my photo?</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  Yes — instantly from your results page if you opted into the gallery, or it&apos;s never stored at all if you didn&apos;t.
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Who can use this?</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  Anyone 18 or older uploading a photo of themselves. No accounts, no logins, no data sold.
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Is this offensive?</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  We aim it squarely at AI scoring systems and internet beauty culture, never at the person.
+                  If you ever see output that crosses a line, email us with the submission ID and we&apos;ll remove it.
+                </p>
+              </div>
+              <p className="text-sm mt-2" style={{ color: 'var(--muted)' }}>
+                More in the full{' '}
+                <Link href="/faq" className="underline" style={{ color: 'var(--accent)' }}>FAQ</Link>.
+              </p>
+            </div>
+          </article>
         </div>
       </section>
 
