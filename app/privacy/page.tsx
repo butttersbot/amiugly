@@ -23,6 +23,7 @@ export default function PrivacyPage() {
           <p><strong>Photos you submit:</strong> When you upload a photo, it is processed by our AI system to generate a satirical &quot;ugliness score.&quot; If you consent to gallery inclusion, your photo and results are stored and displayed publicly. If you do not consent, your photo is processed and immediately discarded — we do not retain it.</p>
           <p className="mt-2"><strong>Usage data:</strong> We may collect standard web analytics data (page views, browser type, referring URLs) through third-party analytics services. This data is aggregated and not linked to individuals.</p>
           <p className="mt-2"><strong>Cookies:</strong> We use cookies for site functionality and advertising. See Section 5 for details on advertising.</p>
+          <p className="mt-2"><strong>IP addresses:</strong> We log the IP address of each upload request for abuse prevention (blocking repeat offenders who attempt to submit prohibited content). IPs are stored under our legitimate interest in maintaining the service and are not shared with third parties.</p>
         </section>
 
         <section>

@@ -2,15 +2,29 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { scoreImage } from '@/lib/scoring'
 import { classifyImage } from '@/lib/moderation'
+import { getClientIp } from '@/lib/admin/ip'
+import { isIpBlocked, logModeration } from '@/lib/admin/log'
 
 // sharp has a native binary so this must run on Node.js, not edge.
 export const runtime = 'nodejs'
+
+// Generic "try again" message used for both real errors and stealth-banned
+// IPs — same surface keeps trolls from learning whether they're blocked.
+const GENERIC_RETRY = 'Something went wrong. UglyNet™ is overwhelmed.'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic']
 const MAX_SIZE_BYTES = 10 * 1024 * 1024 // 10MB
 
 export async function POST(req: NextRequest) {
+  const clientIp = getClientIp(req)
   try {
+    // IP block gate — return the generic error so banned IPs can't tell they're
+    // blocked vs. the site just being broken for them. Cheaper than VPN arms race.
+    if (await isIpBlocked(clientIp)) {
+      await logModeration({ ip: clientIp, imageHash: null, decision: 'ip_blocked' })
+      return NextResponse.json({ error: GENERIC_RETRY }, { status: 500 })
+    }
+
     const formData = await req.formData()
     const file = formData.get('image') as File | null
 
@@ -40,11 +54,24 @@ export async function POST(req: NextRequest) {
       const moderation = await classifyImage(buffer)
       if (!moderation.safe) {
         console.warn('NSFW upload rejected:', moderation.reason, moderation.scores)
+        await logModeration({
+          ip: clientIp,
+          imageHash: null,
+          decision: 'block',
+          reason: moderation.reason,
+          scores: moderation.scores,
+        })
         return NextResponse.json(
           { error: 'This image was flagged by our content filter. Please upload a different photo.' },
           { status: 400 }
         )
       }
+      await logModeration({
+        ip: clientIp,
+        imageHash: null,
+        decision: 'pass',
+        scores: moderation.scores,
+      })
     } catch (modErr) {
       // Fail closed on classifier errors — better to reject than to leak through.
       console.error('Moderation error:', modErr)
@@ -82,12 +109,40 @@ export async function POST(req: NextRequest) {
     const { data: urlData } = getSupabaseAdmin().storage.from('faces').getPublicUrl(filename)
     const image_url = urlData.publicUrl
 
-    // Store submission
-    const { data: submission, error: dbError } = await getSupabaseAdmin()
-      .from('submissions')
-      .insert({ image_url, label, score, categories, in_gallery: true, image_hash: imageHash })
-      .select()
-      .single()
+    // Store submission. client_ip is stored only if the column exists — the
+    // first insert attempt includes it, and if it fails with "column does not
+    // exist" we retry without it. Lets the route work pre-migration.
+    let submission = null
+    let dbError = null
+    {
+      const fullPayload = {
+        image_url,
+        label,
+        score,
+        categories,
+        in_gallery: true,
+        image_hash: imageHash,
+        client_ip: clientIp,
+      }
+      const res1 = await getSupabaseAdmin()
+        .from('submissions')
+        .insert(fullPayload)
+        .select()
+        .single()
+      if (res1.error?.code === '42703' /* undefined_column */) {
+        const fallback = { image_url, label, score, categories, in_gallery: true, image_hash: imageHash }
+        const res2 = await getSupabaseAdmin()
+          .from('submissions')
+          .insert(fallback)
+          .select()
+          .single()
+        submission = res2.data
+        dbError = res2.error
+      } else {
+        submission = res1.data
+        dbError = res1.error
+      }
+    }
 
     if (dbError) {
       console.error('DB error:', dbError)
@@ -97,6 +152,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ id: submission.id, label, categories })
   } catch (err) {
     console.error('Analyze error:', err)
-    return NextResponse.json({ error: 'Something went wrong. UglyNet™ is overwhelmed.' }, { status: 500 })
+    return NextResponse.json({ error: GENERIC_RETRY }, { status: 500 })
   }
 }

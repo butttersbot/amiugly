@@ -11,7 +11,9 @@
     "start": "next start",
     "lint": "eslint",
     "check:adsense": "node scripts/adsense-policy-check.mjs",
-    "scan:gallery": "node --env-file=.env.local scripts/scan-gallery-nsfw.mjs"
+    "scan:gallery": "node --env-file=.env.local scripts/scan-gallery-nsfw.mjs",
+    "admin": "node --env-file=.env.local scripts/admin.mjs",
+    "admin:artifact": "node --env-file=.env.local scripts/admin-artifact.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.98.0",
