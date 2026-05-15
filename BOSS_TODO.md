@@ -23,6 +23,8 @@
 
 ## 🟡 NOT blocked — can knock out now in parallel
 
+- [ ] P0 — **Apply admin toolkit migration.** Paste `migrations/0001_admin_toolkit.sql` into the [Supabase SQL editor](https://supabase.com/dashboard/project/peroeylequnartycqiri/sql/new). Unlocks IP capture per upload, moderation event logging, and the IP block list. Site works fine without it (defensive code) but `top-offenders` and IP visibility stay dark until applied.
+- [ ] P1 — **Restore browser MCP** (`@playwright/mcp` or peekaboo) in `~/.openclaw/tmp/openclaw-cli-mcp-*/mcp.json`. Was wired months ago, fell off in a config rotation. Cost is small (~10 min) but unlocks remote SQL pastes, GitHub button clicks, Vercel env-var edits, etc. without Boss at a desk.
 - [ ] P0 — **Vercel tier check.** Confirm Pro tier ($20/mo) before viral spike. Hobby (free) caps at 100GB bandwidth/month — 8M-follower push will burn that in hours.
 - [ ] P0 — **Supabase tier check.** Free tier caps at 500MB DB + 1GB egress/mo. Verify capacity for image upload load.
 - [ ] P0 — **Google Search Console** — submit sitemap (`https://amiugly.lol/sitemap.xml`) + request indexing for `/`, `/blog`, `/faq`, `/about`. Social-push backlinks compound massively if Google has the site indexed when traffic hits.
